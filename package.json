@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config ./proxy.json",
+    "server": "ts-node -P ./server/server.tsconfig.json ./server/server.ts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -18,6 +19,12 @@
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
+    "@auth0/angular-jwt": "^5.0.2",
+    "angular-oauth2-oidc": "^13.0.1",
+    "angular-oauth2-oidc-jwks": "^13.0.1",
+    "cors": "^2.8.5",
+    "jsrsasign": "^10.5.27",
+    "jsrsasign-util": "^1.0.5",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -26,7 +33,9 @@
     "@angular-devkit/build-angular": "~13.1.4",
     "@angular/cli": "~13.1.4",
     "@angular/compiler-cli": "~13.1.0",
+    "@types/cors": "^2.8.12",
     "@types/jasmine": "~3.10.0",
+    "@types/jsrsasign": "^10.5.3",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
