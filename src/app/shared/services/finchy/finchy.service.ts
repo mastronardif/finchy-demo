@@ -45,8 +45,8 @@ export class FinchyService {
       }
     }
 
-    console.log('this._finchyGlobalConfig= ', this._finchyGlobalConfig);
-    console.log('this.config= ', this.config);
+    console.log('\t this.config= ', this.config);
+    console.log('\t this._finchyGlobalConfig= ', this._finchyGlobalConfig);
   }
 
 
