@@ -45,4 +45,13 @@
     <h1 class="mat-h1">PG</h1>
     <pre style="background-color: rgb(88, 142, 151)">{{ echo | json }}</pre>
   </div>
+
+</div>
+
+<hr/>
+<div *ngFor="let value of values; let idx = index">
+  {{idx}}
+  <input required placeholder="Enter param ({{ idx + 1}})" [name]="'value_' + idx" [(ngModel)]="value.value">
+  {{ value.name }}
+
 </div>

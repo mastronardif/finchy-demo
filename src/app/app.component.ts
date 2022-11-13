@@ -7,6 +7,7 @@ import { FinchyService } from "./shared/services/finchy/finchy.service";
 import { FinchyConfig } from "./shared/services/finchy/finchy.config";
 import { environment } from "src/environments/environment";
 import {InitialAuthService} from '../app/auth/initial-auth.service';
+import { myvalues } from '../app/models/myvalue'
 
 export const MyCinchyAppConfig: FinchyConfig = {
   finchyRootUrl: "http://localhost:9000",
@@ -28,6 +29,7 @@ export const MyCinchyAppConfig: FinchyConfig = {
   ],
 })
 export class AppComponent implements OnInit {
+  values = [...myvalues];
   title = "Curiousity";
   questions: any;
   echo: any;
@@ -175,12 +177,18 @@ export class AppComponent implements OnInit {
 
   getEcho() {
     //alert('getEcho');
+    console.log(this.values);
     // Loads initial data by executing multiple queries
     //this.fetchAndLoadInitialData();
-    const sz =`SELECT *
+    let sz =`SELECT *
     FROM pg_catalog.pg_tables
     WHERE schemaname != 'pg_catalog' AND
         schemaname != 'information_schema';`;
+        //str.match(/Snow/i); // false
+    if (this.values[0].value.match(/selECT/i) ) {
+      sz = this.values[0].value;
+    }
+    //alert(sz)
 
     const params = {id: 321, sql: sz}; //'select * from public."Products" WHERE id = 3'};//{};
     const domain = 'http://localhost:3000/users'; //"SDK Demo";
@@ -199,7 +207,7 @@ export class AppComponent implements OnInit {
         }) => {
           const result = v.queryResult.toObjectArray()
           console.log(v.queryResult.toObjectArray());
-          this.echo = result;
+          this.echo = {result, "params": params };
 
         },
           error: (e) => console.error(e),

@@ -24,7 +24,7 @@ import { MyloginComponent } from './comps/mylogin/mylogin.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    //FormsModule,
+    FormsModule,
     FinchyModule.forRoot(),
 
     // FinchyModule.forRoot({
