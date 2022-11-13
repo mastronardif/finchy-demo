@@ -6,6 +6,7 @@
   <button (click)="logout()">Logout</button>
   -----------
   <button (click)="getXYZ()">/GetXYZ(Guard)</button>
+  <button (click)="getEcho()">/GetEcho(Guard)</button>
   -----------
   <pre>{{inchyService.finchyRootUrl |json}}</pre>
   <!-- <pre>decodedIDToken= {{inchyService.decodedIDToken |json}}</pre> -->
@@ -36,8 +37,12 @@
     <h1 class="mat-h1" style="align-self: flex-start; margin-left: 20px">
       Feed
     </h1>
-
     <!--QUESTIONS-->
     <pre>{{ questions | json }}</pre>
+  </div>
+
+  <div class="leaderboardContainer">
+    <h1 class="mat-h1">PG</h1>
+    <pre style="background-color: rgb(88, 142, 151)">{{ echo | json }}</pre>
   </div>
 </div>

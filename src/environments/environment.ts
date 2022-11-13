@@ -5,6 +5,17 @@
 export const environment = {
   production: false,
   environment: 'Local',
+  authConfig11:  {
+    issuer: 'https://dev-uxby36t5.us.auth0.com/',
+    customQueryParams: { audience: 'https://dev-uxby36t5.us.auth0.com/api/v2/' },
+    redirectUri: `${origin}/`,
+    silentRefreshRedirectUri: `${origin}/silent-refresh.html`,
+    clientId: 'otKjaLWq3l8EaU8MiZRq3an8h7AO7w5l',
+    scope: 'openid profile email',
+    clearHashAfterLogin: true,
+    showDebugInformation: true
+  },
+
   authConfig:  {
     issuer: 'https://philly-vanilly.auth0.com/',
     customQueryParams: { audience: 'https://philly-vanilly.auth0.com/api/v2/' },

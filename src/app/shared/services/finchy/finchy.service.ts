@@ -247,7 +247,8 @@ logout() {
 }
 
   private emitAccessToken() {
-    alert('emitAccessToken();\n '+this._oAuthService.getAccessToken());
+    //alert('emitAccessToken();\n '+this._oAuthService.getAccessToken());
+    console.log('emitAccessToken();\n '+this._oAuthService.getAccessToken());
     this.accessTokenSubject.next(this._oAuthService.getAccessToken());
   }
 
@@ -345,6 +346,33 @@ logout() {
       })
     );
   }
+
+  executeQueryExt(
+    domain: string,
+    query: string,
+    params: any,
+    callbackState?: undefined
+  ): Observable<{ queryResult: Finchy.QueryResult; callbackState: any }> {
+    if (!isNonNullOrWhitespaceString(domain))
+      throw new Finchy.FinchyException('Domain must be a valid string', domain);
+    if (!isNonNullOrWhitespaceString(query))
+      throw new Finchy.FinchyException('Query must be a valid string', query);
+    //let apiUrl = this.finchyRootUrl + '/API/' + domain + '/' + query;
+    let apiUrl = domain + '/' + query;
+
+    let errorMsg =
+      'Failed to execute query ' + query + ' within domain ' + domain;
+
+    return <
+      Observable<{ queryResult: Finchy.QueryResult; callbackState: any }>
+    >this._executeQuery(apiUrl, params, errorMsg, callbackState).pipe(
+      map((response) => response),
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
+  }
+
 
   // Timestamp: 2016.03.07-12:29:28 (last modified)
   // Author(s): Bumblehead (www.bumblehead.com), JBlashill (james@blashill.com), Jumper423 (jump.e.r@yandex.ru)
@@ -618,6 +646,16 @@ export namespace Finchy {
 
     toObjectArray(): Array<Object> {
       let result: Object[] = [];
+      //
+      // If no .data make it so.
+      if (this._jsonResult && !this._jsonResult.data && !this._jsonResult.schema) {
+        // map json object to schema, data.
+        var newFmt = helperJsonToFinchySchemaData(this._jsonResult);
+        this._jsonResult = newFmt;
+        //this._jsonResult.data  = this._jsonResult;
+      }
+      //
+
       this._jsonResult.data.forEach((row: string | any[]) => {
         let rowObject: any = {};
         for (let i = 0; i < row.length; i++) {
@@ -805,5 +843,37 @@ function resolveFn() {
 
 function rejectFn() {
   throw new Error('Function not implemented.');
+}
+
+function helperJsonToFinchySchemaData(ddd: any[]) {
+  var data: any[] = [];
+  var schema: any[] = [];
+
+  // for (const [key, value] of Object.entries(ddd)) {
+  //   console.log(`${key} ${value}`);
+  //   schema.push(    {
+  //     "columnName": key,
+  //     "type": "Int32"
+  //   });
+  // };
+  Object.keys(ddd[0]).forEach(element => {
+       schema.push(    {
+      "columnName": element,
+      "type": "Int32"
+    });
+  });
+
+
+  // data looks like => [ [aa,sss,ddd], [aa,sd,ws], [az,ds,dw]]
+  ddd.forEach(element => {
+    data.push(Object.values(element));
+  });
+
+  return {
+    schema: schema,
+    data: data
+  }
+
+  //Object.keys(obj)
 }
 

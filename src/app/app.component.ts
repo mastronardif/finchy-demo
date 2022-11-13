@@ -30,6 +30,7 @@ export const MyCinchyAppConfig: FinchyConfig = {
 export class AppComponent implements OnInit {
   title = "Curiousity";
   questions: any;
+  echo: any;
   leaderboard: Person[] = [];
   currentAnswer = "";
   currentUserCanAnswer: boolean | undefined;
@@ -115,6 +116,7 @@ export class AppComponent implements OnInit {
           console.log(error);
         }
       );
+
     this._finchyService
       .executeQuery(
         queriesToExecute[1].domain,
@@ -166,9 +168,53 @@ export class AppComponent implements OnInit {
   }
 
   getXYZ() {
-    alert('getXYZ');
+    //alert('getXYZ');
     // Loads initial data by executing multiple queries
     this.fetchAndLoadInitialData();
+  }
+
+  getEcho() {
+    //alert('getEcho');
+    // Loads initial data by executing multiple queries
+    //this.fetchAndLoadInitialData();
+    const sz =`SELECT *
+    FROM pg_catalog.pg_tables
+    WHERE schemaname != 'pg_catalog' AND
+        schemaname != 'information_schema';`;
+
+    const params = {id: 321, sql: sz}; //'select * from public."Products" WHERE id = 3'};//{};
+    const domain = 'http://localhost:3000/users'; //"SDK Demo";
+    const api = 'bysql'; //"Get Questions"; // 'echo',
+
+    this._finchyService
+      .executeQueryExt(
+        domain,
+        api,
+        params
+      )
+      .subscribe({
+          next: (v: {
+            queryResult: any;
+            callbackState?: any;
+        }) => {
+          const result = v.queryResult.toObjectArray()
+          console.log(v.queryResult.toObjectArray());
+          this.echo = result;
+
+        },
+          error: (e) => console.error(e),
+          complete: () => {console.info;
+            // console.log(resp.toObjectArray());
+            // this.questions = resp.toObjectArray()
+          }
+      });
+      //   (response) => {
+      //     console.log(response);
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //   }
+      // );
   }
 
   login() {
