@@ -7,6 +7,36 @@ export const USERS = {
 
 };
 
+export const NOTIFICATIONS: any = {
+  "schema": [
+    {
+      "columnName": "messageEN",
+      "type": "String"
+    },
+    {
+      "columnName": "messageFR",
+      "type": "String"
+    }
+  ],
+  "data": [
+    [
+      "Scroll User17",
+      "BM"
+    ],
+    [
+      "Scroll User18",
+      "BM"
+    ]
+    ]
+};
+
+export const FINCHYAPIS = [
+  'http://localhost:3000/finchy/executequery',
+  'http://localhost:3000/finchy/help',
+  "http://localhost:3000/finchy/executeCQL",
+  "http://localhost:3000/finchy/savedqueries",
+];
+
 export const QUESTIONS: any = {
   "schema": [
     {

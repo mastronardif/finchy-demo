@@ -1,11 +1,19 @@
 
 
 import {Request, Response} from 'express';
-import {COURSES, QUESTIONS} from "./db-data";
+import {COURSES, NOTIFICATIONS, QUESTIONS} from "./db-data";
 
+
+
+export function getNotification00(req: Request, res: Response) {
+  console.log("Get%20Notification data ...");
+  setTimeout(() => {
+    res.status(200).json(NOTIFICATIONS);
+  }, 1000);
+}
 
 export function getQuestions(req: Request, res: Response) {
-  console.log("Retrieving questions data ...");
+  console.log("ZZRRRetrieving questions data ...");
   setTimeout(() => {
     res.status(200).json(QUESTIONS);
   }, 1000);

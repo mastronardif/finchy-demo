@@ -191,8 +191,8 @@ export class AppComponent implements OnInit {
     //alert(sz)
 
     const params = {id: 321, sql: sz}; //'select * from public."Products" WHERE id = 3'};//{};
-    const domain = 'http://localhost:3000/users'; //"SDK Demo";
-    const api = 'bysql'; //"Get Questions"; // 'echo',
+    const domain = 'http://localhost:3000/finchy'; //"SDK Demo";
+    const api = 'executeCQL'; //'bysql'; //"Get Questions"; // 'echo',
 
     this._finchyService
       .executeQueryExt(
