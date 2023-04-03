@@ -5,7 +5,7 @@ import {Application} from "express";
 import * as cors from 'cors';
 
 //import *  as cors from 'cors';
-import { getNotification, switchMe } from "./finchy.route";
+import { GetGroupsCurrentUserBelongsTo, getNotification, switchMe } from "./finchy.route";
 import { getAllCourses, getCourseByUrl, getQuestions} from "./get-courses.route";
 //import {searchLessons} from "./search-lessons.route";
 import {loginUser} from "./auth.route";
@@ -90,7 +90,6 @@ app.use((req, res, next) => {
   console.log( '\n\t body   ', req.body);
   console.log( '\n\t params   ', req.params);
 
-
   const apiUrl =  "/API/RBCOA/";
   //const apiUrlRegex = /^\/[a-zA-Z0-9_-]*\/API\/RBCOA\//;
   const apiUrlRegex = /^\/[a-zA-Z0-9_-]*\/API\/RBCOA\/(.*)/;
@@ -101,7 +100,10 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // app.route('/api/courses').get(getAllCourses);
+
+app.route('/finchy/Account/GetGroupsCurrentUserBelongsTo').get(GetGroupsCurrentUserBelongsTo);
 app.route('/api/SDK%20Demo/Get%20Questions').post(getQuestions);
 //app.route('/finchy/API/RBCOA/SDK%20Demo/Get%20Questions').post(getQuestions);
 ////app.route('/finchy/API/RBCOA/Get%20Notification').post(getNotification);
@@ -111,6 +113,8 @@ app.route('/api/SDK%20Demo/Get%20Questions').post(getQuestions);
 // app.route('/api/course/:id').delete(deleteCourse);
 // app.route('/api/courses/:courseUrl').get(getCourseByUrl);
 //app.route('/api/lessons').get(searchLessons);
+
+
 
 //enable pre-flight
 //app.route.options('*', cors(options));

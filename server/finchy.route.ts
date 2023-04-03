@@ -19,11 +19,12 @@ export function switchMe(req: Request, res: Response) {
   }
   let path = apiUrlMatch?.[1] || '';
   // remove noise.
-  path = decodeURIComponent(path).replace(/\s/g, "");
+  //path = decodeURIComponent(path).replace(/\s/g, "");
+  path = decodeURIComponent(path)
   Syntax: switch (
     path // TO DO: make this a lookup functioin.
   ) {
-    case 'GetNotification': {
+    case 'Get Notification': {
       return getNotification(req, res);
       break;
     }
@@ -93,4 +94,22 @@ async function getTestBed00(
     res.status(500).send('Server error');
   }
 }
+
+export async function GetGroupsCurrentUserBelongsTo(
+  req: any,
+  res: {
+    status: any;
+    json: (arg0: any) => void;
+  }
+) {
+  try {
+    const response = await axios.post('http://localhost:3000/finchy/help');
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
+}
+
+
 
